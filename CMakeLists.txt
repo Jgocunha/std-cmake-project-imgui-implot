@@ -16,24 +16,24 @@ set(VCPKG_ROOT $ENV{VCPKG_ROOT})
 # Include VCPKG toolchain
 include(${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake)
 
-# Setup imgui
-find_package(imgui CONFIG REQUIRED)
 
 # Add library project
 set(LIB_PROJECT ${CMAKE_PROJECT_NAME}_LIB)
 add_library(${LIB_PROJECT} include/example.h src/example.cpp include/example-imgui.h src/example-imgui.cpp)
 target_include_directories(${LIB_PROJECT} PRIVATE include)
+
+# Setup imgui
+find_package(imgui CONFIG REQUIRED)
 target_link_libraries(${LIB_PROJECT} PRIVATE imgui::imgui "d3d12.lib" "dxgi.lib" "d3dcompiler.lib")
 
+# Setup implot
+find_package(implot CONFIG REQUIRED)
+target_link_libraries(${LIB_PROJECT} PRIVATE implot::implot)
 
 # Add executable project
 add_executable(${CMAKE_PROJECT_NAME} src/main.cpp)
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE include)
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE imgui::imgui ${LIB_PROJECT})
-
-#target_include_directories(${CMAKE_PROJECT_NAME}_LIB PRIVATE ${VCPKG_ROOT}/installed/x64-windows/include)
-#target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE imgui::imgui ${LIB_PROJECT})
-#target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE imgui::imgui ${LIB_PROJECT})
 
 # Setup Catch2
 enable_testing()

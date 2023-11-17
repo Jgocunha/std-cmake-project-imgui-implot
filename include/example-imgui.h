@@ -10,6 +10,10 @@
 #include <tchar.h>
 
 
+#include "implot.h"
+#include "implot_internal.h"
+
+
 #ifdef _DEBUG
 #define DX12_ENABLE_DEBUG_LAYER
 #endif
@@ -73,4 +77,8 @@ public:
 	void close();
 
 	bool getCloseUI() const;
+
+private:
+	static void renderWindows();
+	static void scatterPlotDemo();
 };
