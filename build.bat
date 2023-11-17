@@ -15,6 +15,12 @@ IF NOT DEFINED VCPKG_ROOT (
 :: Install catch2 using Vcpkg
 "%VCPKG_ROOT%\vcpkg.exe" install catch2:x64-windows
 
+:: Install imgui using Vcpkg
+"%VCPKG_ROOT%\vcpkg.exe" install imgui[docking-experimental,core,dx12-binding,win32-binding]:x64-windows
+
+:: Install implot using Vcpkg
+"%VCPKG_ROOT%\vcpkg.exe" install implot:x64-windows
+
 :: Using MSBuild may require elevation
 "%VCPKG_ROOT%\vcpkg.exe" integrate install
 
@@ -27,3 +33,6 @@ cmake -S "%PROJECT_ROOT%" -B "%PROJECT_ROOT%\build" -DCMAKE_TOOLCHAIN_FILE="%VCP
 cmake --build "%PROJECT_ROOT%\build" --config Release
 
 :: Optionally, you can run your executable here if applicable
+
+pause
+exit /b 1
